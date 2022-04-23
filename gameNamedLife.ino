@@ -7,43 +7,6 @@ struct point {
     bool isLive : 1;
 };
 
-void setup() {
-    //setlocale(LC_ALL, "Russian");
-
-    point world[WORLD_WIDTH][WORLD_HEIGHT];
-    point previousWorld[WORLD_WIDTH][WORLD_HEIGHT];
-
-    setFirstLife(world);
-    int liveCells = -1;
-    bool isOptimalConfig = 0;
-
-    do {
-        printWorld(world);
-        copyingWorld(world, previousWorld);
-        nextGeneration(world, previousWorld);
-
-        isOptimalConfig = comparingWorlds(world, previousWorld) == 0;
-        liveCells = countLiveCells(world);
-
-        if (isOptimalConfig)
-        {
-            Serial.println("Сложилась стабильная конфигурация");
-            Serial.println();
-        }
-        else if (liveCells == 0)
-        {
-            Serial.println("Все клетки умерли");
-            Serial.println();
-        }
-
-        delay(1000);
-    } while (liveCells != 0 && !isOptimalConfig);
-}
-
-void loop() {
-    
-}
-
 // генерация первой жизни в мире
 void setFirstLife(point world[][WORLD_HEIGHT])
 {
@@ -198,5 +161,41 @@ int comparingWorlds(point world[][WORLD_HEIGHT], point previousWorld[][WORLD_HEI
             }
         }
     }
-    return 0;
+}
+
+void setup() {
+    //setlocale(LC_ALL, "Russian");
+
+    point world[WORLD_WIDTH][WORLD_HEIGHT];
+    point previousWorld[WORLD_WIDTH][WORLD_HEIGHT];
+
+    setFirstLife(world);
+    int liveCells = -1;
+    bool isOptimalConfig = 0;
+
+    do {
+        printWorld(world);
+        copyingWorld(world, previousWorld);
+        nextGeneration(world, previousWorld);
+
+        isOptimalConfig = comparingWorlds(world, previousWorld) == 0;
+        liveCells = countLiveCells(world);
+
+        if (isOptimalConfig)
+        {
+            Serial.println("Сложилась стабильная конфигурация");
+            Serial.println();
+        }
+        else if (liveCells == 0)
+        {
+            Serial.println("Все клетки умерли");
+            Serial.println();
+        }
+
+        delay(1000);
+    } while (liveCells != 0 && !isOptimalConfig);
+}
+
+void loop() {
+    
 }
