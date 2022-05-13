@@ -1,3 +1,15 @@
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 32
+
+#define OLED_RESET 4 
+#define SCREEN_ADDRESS 0x3C
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 #define WORLD_HEIGHT 5
 #define WORLD_WIDTH 5
 
@@ -6,6 +18,7 @@ using namespace std;
 struct point {
     bool isLive : 1;
 };
+
 
 // генерация первой жизни в мире
 void setFirstLife(point world[][WORLD_HEIGHT])
@@ -161,11 +174,22 @@ int comparingWorlds(point world[][WORLD_HEIGHT], point previousWorld[][WORLD_HEI
             }
         }
     }
+    return 0;
 }
 
 void setup() {
-    //setlocale(LC_ALL, "Russian");
+	
+	  Serial.begin(9600);
+    display.clearDisplay();
+    display.display();
 
+    display.setTextSize(1);
+    display.setTextColor(SSD1306_WHITE);
+    display.setCursor(0, 0);     
+  
+    //setlocale(LC_ALL, "Russian");
+    randomSeed(analogRead(0));
+    
     point world[WORLD_WIDTH][WORLD_HEIGHT];
     point previousWorld[WORLD_WIDTH][WORLD_HEIGHT];
 
@@ -197,5 +221,5 @@ void setup() {
 }
 
 void loop() {
-    
+	
 }
