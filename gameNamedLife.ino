@@ -50,19 +50,19 @@ void printWorld(point world[][WORLD_HEIGHT])
         {
             if (world[i][j].isLive == 1)
             {
-                Serial.print('*');
+                display.fillRect(1 + i * 6, 1 + j * 6, 4, 4, 1);
             }
             else
             {
-                Serial.print(' ');
+                display.drawRect(1 + i * 6, 1 + j * 6, 4, 4, 1);
             }
 
-            Serial.print(' ');
+            display.print(' ');
         }
-        Serial.println();
+        display.println();
     }
-    Serial.println("поколение");
-    Serial.println();
+    display.println("поколение");
+    display.println();
 }
 
 // количество живых клеток в мире
@@ -179,7 +179,7 @@ int comparingWorlds(point world[][WORLD_HEIGHT], point previousWorld[][WORLD_HEI
 
 void setup() {
 	
-	  Serial.begin(9600);
+    Serial.begin(9600);
     display.clearDisplay();
     display.display();
 
@@ -187,7 +187,6 @@ void setup() {
     display.setTextColor(SSD1306_WHITE);
     display.setCursor(0, 0);     
   
-    //setlocale(LC_ALL, "Russian");
     randomSeed(analogRead(0));
     
     point world[WORLD_WIDTH][WORLD_HEIGHT];
@@ -207,13 +206,15 @@ void setup() {
 
         if (isOptimalConfig)
         {
-            Serial.println("Сложилась стабильная конфигурация");
-            Serial.println();
+    	    display.setCursor(10,6); 
+            display.println("Сложилась стабильная конфигурация");
+            display.println();
         }
         else if (liveCells == 0)
         {
-            Serial.println("Все клетки умерли");
-            Serial.println();
+	    display.setCursor(10,6); 
+            display.println("Все клетки умерли");
+            display.println();
         }
 
         delay(1000);
