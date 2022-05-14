@@ -56,13 +56,8 @@ void printWorld(point world[][WORLD_HEIGHT])
             {
                 display.drawRect(1 + i * 6, 1 + j * 6, 4, 4, 1);
             }
-
-            display.print(' ');
         }
-        display.println();
     }
-    display.println("поколение");
-    display.println();
 }
 
 // количество живых клеток в мире
@@ -207,14 +202,12 @@ void setup() {
         if (isOptimalConfig)
         {
     	    display.setCursor(10,6); 
-            display.println("Сложилась стабильная конфигурация");
-            display.println();
+            display.println("optimal");
         }
         else if (liveCells == 0)
         {
 	    display.setCursor(10,6); 
-            display.println("Все клетки умерли");
-            display.println();
+            display.println("died");
         }
 
         delay(1000);
