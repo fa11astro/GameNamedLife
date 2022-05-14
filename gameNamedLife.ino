@@ -58,6 +58,7 @@ void printWorld(point world[][WORLD_HEIGHT])
             }
         }
     }
+    display.clearDisplay();
 }
 
 // количество живых клеток в мире
@@ -201,16 +202,18 @@ void setup() {
 
         if (isOptimalConfig)
         {
+	    display.clearDisplay();
     	    display.setCursor(10,6); 
             display.println("optimal");
         }
         else if (liveCells == 0)
         {
+	    display.clearDisplay();
 	    display.setCursor(10,6); 
             display.println("died");
         }
 
-        delay(1000);
+        delay(2000);
     } while (liveCells != 0 && !isOptimalConfig);
 }
 
